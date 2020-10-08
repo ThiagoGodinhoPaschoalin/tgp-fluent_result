@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tgp.FluentResult.Core", "Tg
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tgp.FluentResult", "Tgp.FluentResult\Tgp.FluentResult.csproj", "{01414417-B9A1-4E17-8FCB-0976E6B82CA6}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tgp.FluentResult.Tests", "Tgp.FluentResult.Tests\Tgp.FluentResult.Tests.csproj", "{02B81306-6FA2-4C00-8107-E0384357B027}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{01414417-B9A1-4E17-8FCB-0976E6B82CA6}.Release|x64.Build.0 = Release|Any CPU
 		{01414417-B9A1-4E17-8FCB-0976E6B82CA6}.Release|x86.ActiveCfg = Release|Any CPU
 		{01414417-B9A1-4E17-8FCB-0976E6B82CA6}.Release|x86.Build.0 = Release|Any CPU
+		{02B81306-6FA2-4C00-8107-E0384357B027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02B81306-6FA2-4C00-8107-E0384357B027}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02B81306-6FA2-4C00-8107-E0384357B027}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{02B81306-6FA2-4C00-8107-E0384357B027}.Debug|x64.Build.0 = Debug|Any CPU
+		{02B81306-6FA2-4C00-8107-E0384357B027}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{02B81306-6FA2-4C00-8107-E0384357B027}.Debug|x86.Build.0 = Debug|Any CPU
+		{02B81306-6FA2-4C00-8107-E0384357B027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02B81306-6FA2-4C00-8107-E0384357B027}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02B81306-6FA2-4C00-8107-E0384357B027}.Release|x64.ActiveCfg = Release|Any CPU
+		{02B81306-6FA2-4C00-8107-E0384357B027}.Release|x64.Build.0 = Release|Any CPU
+		{02B81306-6FA2-4C00-8107-E0384357B027}.Release|x86.ActiveCfg = Release|Any CPU
+		{02B81306-6FA2-4C00-8107-E0384357B027}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
