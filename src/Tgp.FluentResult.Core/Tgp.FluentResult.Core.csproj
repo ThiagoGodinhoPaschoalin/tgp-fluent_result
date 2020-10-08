@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Thiago Godinho Paschoalin</Authors>
+    <Company>Tgp4Tech</Company>
+    <Product>Tgp.FluentResult</Product>
+    <Description>Fluent Result for any project.</Description>
+    <RepositoryUrl>https://github.com/ThiagoGodinhoPaschoalin/tgp-fluent_result</RepositoryUrl>
+  </PropertyGroup>
+
+</Project>
