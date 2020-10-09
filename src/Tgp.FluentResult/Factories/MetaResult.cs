@@ -14,8 +14,16 @@ namespace Tgp.FluentResult
         /// </summary>
         /// <param name="message">Mensagem amigável para usuário</param>
         /// <returns><see cref="IMetaHit"/></returns>
-        public static IMetaHit Hit(string message = null)
-            => new MetaHit(message);
+        public static IMetaHit Hit()
+            => new MetaHit();
+
+        /// <summary>
+        /// Fábrica de metadado para aviso
+        /// </summary>
+        /// <param name="message">Mensagem descritiva sobre o aviso</param>
+        /// <returns><see cref="IMetaWarn"/></returns>
+        public static IMetaWarn Warn(string message) 
+            => new MetaWarn(message);
 
         /// <summary>
         /// Fábrica de metadado para erro
