@@ -7,7 +7,7 @@ namespace Tgp.FluentResult.Core.Entities
     /// <summary>
     /// Metadado padrão para Aviso
     /// </summary>
-    public sealed class MetaWarn : Metadata, IMetaWarn
+    public class MetaWarn : Metadata, IMetaWarn
     {
         /// <summary>
         /// Mensagem descritiva do Metadado de Aviso

@@ -6,7 +6,7 @@ namespace Tgp.FluentResult.Core.Entities
     /// <summary>
     /// Metadado padrão para acerto
     /// </summary>
-    public sealed class MetaHit : Metadata, IMetaHit
+    public class MetaHit : Metadata, IMetaHit
     {
         /// <summary>
         /// Metadado para acerto

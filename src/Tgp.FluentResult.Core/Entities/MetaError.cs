@@ -7,7 +7,7 @@ namespace Tgp.FluentResult.Core.Entities
     /// <summary>
     /// Metadado padrão para Erro
     /// </summary>
-    public sealed class MetaError : Metadata, IMetaError
+    public class MetaError : Metadata, IMetaError
     {
         /// <summary>
         /// Mensagem descritiva do Metadado de erro
