@@ -6,11 +6,6 @@ namespace Tgp.FluentResult.Core.Interfaces
     public interface IMetadata
     {
         /// <summary>
-        /// Mensagem descritiva do Metadado
-        /// </summary>
-        string Message { get; }
-
-        /// <summary>
         /// Data da criação do Metadado
         /// </summary>
         DateTime CreatedAt { get; }

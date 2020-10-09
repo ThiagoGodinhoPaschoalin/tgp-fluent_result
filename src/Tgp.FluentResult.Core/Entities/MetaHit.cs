@@ -12,8 +12,8 @@ namespace Tgp.FluentResult.Core.Entities
         /// Metadado para acerto
         /// </summary>
         /// <param name="message">Mensagem descritiva sobre o acerto</param>
-        public MetaHit(string message)
-            : base(message)
+        public MetaHit()
+            : base()
         { }
     }
 }

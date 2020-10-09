@@ -12,11 +12,6 @@ namespace Tgp.FluentResult.Core.Models
         private readonly Dictionary<string, object> chunks;
 
         /// <summary>
-        /// Mensagem descritiva do Metadado
-        /// </summary>
-        public string Message { get; private set; }
-
-        /// <summary>
         /// Data da criação do Metadado
         /// </summary>
         public DateTime CreatedAt { get; private set; }
@@ -30,9 +25,8 @@ namespace Tgp.FluentResult.Core.Models
         /// Construtor do Metadado
         /// </summary>
         /// <param name="message">Mensagem descritiva sobre o metadado</param>
-        protected Metadata(string message)
+        protected Metadata()
         {
-            this.Message = message;
             this.CreatedAt = DateTime.UtcNow;
             this.chunks = new Dictionary<string, object>();
         }
