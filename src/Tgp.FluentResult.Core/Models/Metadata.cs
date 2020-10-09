@@ -7,6 +7,11 @@ namespace Tgp.FluentResult.Core.Models
     public abstract class Metadata : IMetadata
     {
         /// <summary>
+        /// Dicionário de pequenos pedaços de dados referente ao Metadado
+        /// </summary>
+        private readonly Dictionary<string, object> chunks;
+
+        /// <summary>
         /// Mensagem descritiva do Metadado
         /// </summary>
         public string Message { get; private set; }
@@ -17,9 +22,9 @@ namespace Tgp.FluentResult.Core.Models
         public DateTime CreatedAt { get; private set; }
 
         /// <summary>
-        /// Dicionário de pequenos pedaços de dados referente ao Metadado
+        /// Obter Dicionário somente leitura de pedaços de dados do Metadado
         /// </summary>
-        private Dictionary<string, object> Chunks { get; set; }
+        public IReadOnlyDictionary<string, object> GetChunks => chunks;
 
         /// <summary>
         /// Construtor do Metadado
@@ -29,7 +34,7 @@ namespace Tgp.FluentResult.Core.Models
         {
             this.Message = message;
             this.CreatedAt = DateTime.UtcNow;
-            this.Chunks = new Dictionary<string, object>();
+            this.chunks = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -53,13 +58,13 @@ namespace Tgp.FluentResult.Core.Models
             ///TODO: Verificar a importância da validação do chunk;
             ///fazer um hash do 'value' já armazenado e comparar com o hash do novo 'value';
             ///Se for o mesmo conteúdo, ignorar ou repetir o dado?
-            if (Chunks.ContainsKey(key))
+            if (chunks.ContainsKey(key))
             {
-                Chunks.Add(string.Concat(key, "_", DateTime.UtcNow.ToString("u")), value);
+                chunks.Add(string.Concat(key, "_", DateTime.UtcNow.ToString("u")), value);
             }
             else
             {
-                Chunks.Add(key, value);
+                chunks.Add(key, value);
             }
 
             return this;

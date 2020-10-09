@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Tgp.FluentResult.Core.Interfaces
 {
@@ -13,6 +14,11 @@ namespace Tgp.FluentResult.Core.Interfaces
         /// Data da criação do Metadado
         /// </summary>
         DateTime CreatedAt { get; }
+
+        /// <summary>
+        /// Obter Dicionário somente leitura de pedaços de dados do Metadado
+        /// </summary>
+        IReadOnlyDictionary<string, object> GetChunks { get; }
 
         /// <summary>
         /// Acrescentar um pequeno pedaço de dado ao metadado

@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 
 namespace Tgp.FluentResult.Core.Interfaces
 {
@@ -23,6 +24,11 @@ namespace Tgp.FluentResult.Core.Interfaces
         /// </summary>
         /// <returns></returns>
         IMetadata GetFirstMetadata { get; }
+
+        /// <summary>
+        /// Obter dicionário somente leitura dos metadados
+        /// </summary>
+        IReadOnlyDictionary<byte, IMetadata> GetMetadata { get; }
 
         /// <summary>
         /// Enfileirar Metadados ao Resultado

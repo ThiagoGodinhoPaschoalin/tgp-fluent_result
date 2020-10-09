@@ -13,6 +13,16 @@ namespace Tgp.FluentResult.Core.Models
     public abstract class BaseResult<TResult> : IBaseResult<TResult> where TResult : BaseResult<TResult>
     {
         /// <summary>
+        /// Registro de metadados;
+        /// </summary>
+        private readonly Dictionary<byte, IMetadata> metadata;
+
+        /// <summary>
+        /// valor inicial da chave do dicionário dos metadados
+        /// </summary>
+        private const byte _initialValueOfMetaKey = 1;
+
+        /// <summary>
         /// Código de retorno da requisição;
         /// </summary>
         public HttpStatusCode StatusCode { get; private set; }
@@ -26,20 +36,15 @@ namespace Tgp.FluentResult.Core.Models
         /// Metadado que é registrado na inicialização do Result;
         /// </summary>
         /// <returns></returns>
-        public IMetadata GetFirstMetadata => Metadatas
+        public IMetadata GetFirstMetadata => metadata
             .Where(x => x.Key == _initialValueOfMetaKey)
             .Select(x => x.Value)
             .First();
 
         /// <summary>
-        /// Registro de metadados;
+        /// Obter dicionário somente leitura dos metadados
         /// </summary>
-        private Dictionary<byte, IMetadata> Metadatas { get; set; }
-
-        /// <summary>
-        /// valor inicial da chave do dicionário dos metadados
-        /// </summary>
-        private const byte _initialValueOfMetaKey = 1;
+        public IReadOnlyDictionary<byte, IMetadata> GetMetadata => metadata;
 
         /// <summary>
         /// Construtor de Resultado Fluente
@@ -53,7 +58,7 @@ namespace Tgp.FluentResult.Core.Models
                 throw new ArgumentNullException(nameof(metadata), "Entity is mandatory!");
             }
 
-            this.Metadatas = new Dictionary<byte, IMetadata>() { [_initialValueOfMetaKey] = metadata };
+            this.metadata = new Dictionary<byte, IMetadata>() { [_initialValueOfMetaKey] = metadata };
             this.IsFailed = typeof(IMetaError).IsInstanceOfType(metadata);
             this.StatusCode = statusCode;
         }
@@ -70,14 +75,14 @@ namespace Tgp.FluentResult.Core.Models
                 throw new ArgumentNullException(nameof(metadata), "Entity is mandatory!");
             }
 
-            int sum = Metadatas.Count + 1;
+            int sum = this.metadata.Count + 1;
 
             if (sum > byte.MaxValue)
             {
                 throw new IndexOutOfRangeException($"Each Result object can contain a maximum of {byte.MaxValue} Metadata's.");
             }
 
-            Metadatas.Add( (byte) sum, metadata);
+            this.metadata.Add( (byte) sum, metadata);
 
             return (TResult) this;
         }
