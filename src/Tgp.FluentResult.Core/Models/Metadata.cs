@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Tgp.FluentResult.Core.Exceptions;
 using Tgp.FluentResult.Core.Interfaces;
 
 namespace Tgp.FluentResult.Core.Models
@@ -41,20 +42,17 @@ namespace Tgp.FluentResult.Core.Models
         {
             if (string.IsNullOrWhiteSpace(key))
             {
-                throw new ArgumentNullException(nameof(key), "Property is mandatory!");
+                throw new FluentResultException(nameof(Metadata), nameof(AddChunk), nameof(key), "Property is mandatory!");
             }
 
             if (value is null)
             {
-                throw new ArgumentNullException(nameof(value), "Property is mandatory!");
+                throw new FluentResultException(nameof(Metadata), nameof(AddChunk), nameof(value), "Property is mandatory!");
             }
 
-            ///TODO: Verificar a importância da validação do chunk;
-            ///fazer um hash do 'value' já armazenado e comparar com o hash do novo 'value';
-            ///Se for o mesmo conteúdo, ignorar ou repetir o dado?
             if (chunks.ContainsKey(key))
             {
-                chunks.Add(string.Concat(key, "_", DateTime.UtcNow.ToString("u")), value);
+                throw new FluentResultException(nameof(Metadata), nameof(AddChunk), nameof(key), $"the '{key}' key of the Chunk already exists.");
             }
             else
             {
@@ -73,11 +71,12 @@ namespace Tgp.FluentResult.Core.Models
         public bool TryConvertMeta<TIDerivedMeta>(out TIDerivedMeta derivedMeta) where TIDerivedMeta : IMetadata
         {
             derivedMeta = default;
-            bool converted = typeof(TIDerivedMeta).IsInstanceOfType(this);
+            IMetadata thisMeta = this;
+            bool converted = thisMeta is TIDerivedMeta;
 
             if (converted)
             {
-                derivedMeta = (TIDerivedMeta)((IMetadata)this);
+                derivedMeta = (TIDerivedMeta) thisMeta;
             }
 
             return converted;

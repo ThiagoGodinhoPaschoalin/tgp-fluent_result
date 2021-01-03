@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 
 namespace Tgp.FluentResult.Core.Interfaces
 {
@@ -9,11 +8,6 @@ namespace Tgp.FluentResult.Core.Interfaces
     /// <typeparam name="TResult"></typeparam>
     public interface IBaseResult<TResult>
     {
-        /// <summary>
-        /// Código de retorno da requisição;
-        /// </summary>
-        HttpStatusCode StatusCode { get; }
-
         /// <summary>
         /// Registrar se o objeto armazenado é uma falha ou não;
         /// </summary>

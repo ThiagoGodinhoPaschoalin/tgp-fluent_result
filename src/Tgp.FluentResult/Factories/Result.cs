@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Net;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using Tgp.FluentResult.Core.Entities;
 using Tgp.FluentResult.Core.Interfaces;
 
@@ -17,8 +14,8 @@ namespace Tgp.FluentResult
         /// <param name="exception">Possível exceção que foi gerada no bloco</param>
         /// <param name="statusCode"><see cref="HttpStatusCode"/></param>
         /// <returns><see cref="Result"/></returns>
-        public static Result Failure(string message, Exception exception = null, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
-            => new Result(new MetaError(message, exception), statusCode);
+        public static Result Failure(string message, Exception exception = null)
+            => new Result(new MetaError(message, exception));
 
 
         /// <summary>
@@ -27,8 +24,8 @@ namespace Tgp.FluentResult
         /// <param name="message">Mensagem descritiva sobre o aviso</param>
         /// <param name="statusCode"><see cref="HttpStatusCode"/></param>
         /// <returns><see cref="Result"/></returns>
-        public static Result Warning(string message, HttpStatusCode statusCode = HttpStatusCode.Conflict)
-            => new Result(new MetaWarn(message), statusCode);
+        public static Result Warning(string message)
+            => new Result(new MetaWarn(message));
 
 
         /// <summary>
@@ -36,8 +33,8 @@ namespace Tgp.FluentResult
         /// </summary>
         /// <param name="statusCode"><see cref="HttpStatusCode"/></param>
         /// <returns><see cref="Result"/></returns>
-        public static Result Success(HttpStatusCode statusCode = HttpStatusCode.OK)
-            => new Result(new MetaHit(), statusCode);
+        public static Result Success()
+            => new Result(new MetaHit());
 
         /// <summary>
         ///  Retorno de sucesso com um objeto de dados para o usuário
@@ -46,21 +43,9 @@ namespace Tgp.FluentResult
         /// <param name="response">Entidade de resposta</param>
         /// <param name="statusCode"><see cref="HttpStatusCode"/></param>
         /// <returns><see cref="Result{TResponse}"/></returns>
-        public static Result<TResponse> Success<TResponse>(TResponse response, HttpStatusCode statusCode = HttpStatusCode.OK)
+        public static Result<TResponse> Success<TResponse>(TResponse response)
             where TResponse : class
-            => Result<TResponse>.Success(response, statusCode);
-
-        /// <summary>
-        /// Abstração de execução de uma consulta
-        /// </summary>
-        /// <typeparam name="TResponse">Objeto de valor complexo</typeparam>
-        /// <param name="queryFunction">Função que será executada de forma assíncrona</param>
-        /// <param name="errorMsg"></param>
-        /// <returns>Task <see cref="Result{TResponse}"/></returns>
-        public static Task<Result<TResponse>> Query<TResponse>(Task<TResponse> queryFunction, string errorMsg)
-            where TResponse : class
-            => Result<TResponse>.Query(queryFunction, errorMsg);
-
+            => Result<TResponse>.Success(response);
 
         /// <summary>
         /// Result completo. Monte o resultado que for mais conveniente
@@ -68,8 +53,8 @@ namespace Tgp.FluentResult
         /// <param name="metadata"><see cref="IMetadata"/></param>
         /// <param name="statusCode"><see cref="HttpStatusCode"/></param>
         /// <returns><see cref="Result"/></returns>
-        public static Result Ctor(IMetadata metadata, HttpStatusCode statusCode)
-            => new Result(metadata, statusCode);
+        public static Result Ctor(IMetadata metadata)
+            => new Result(metadata);
 
         /// <summary>
         /// Result completo com retorno de dado. Monte o resultado que for mais conveniente
@@ -79,9 +64,9 @@ namespace Tgp.FluentResult
         /// <param name="metadata"><see cref="IMetadata"/></param>
         /// <param name="statusCode"><see cref="HttpStatusCode"/></param>
         /// <returns><see cref="Result{TResponse}"/></returns>
-        public static Result<TResponse> Ctor<TResponse>(TResponse response, IMetadata metadata, HttpStatusCode statusCode)
+        public static Result<TResponse> Ctor<TResponse>(TResponse response, IMetadata metadata)
             where TResponse : class
-            => Result<TResponse>.Ctor(response, metadata, statusCode);
+            => Result<TResponse>.Ctor(response, metadata);
     }
 
     public partial class Result<TResponse>
@@ -93,37 +78,8 @@ namespace Tgp.FluentResult
         /// <param name="message">Mensagem amigável para o usuário</param>
         /// <param name="statusCode"><see cref="HttpStatusCode"/></param>
         /// <returns><see cref="Result{TResponse}"/></returns>
-        public static Result<TResponse> Success(TResponse response, HttpStatusCode statusCode = HttpStatusCode.OK)
-            => new Result<TResponse>(response, new MetaHit(), statusCode);
-
-        /// <summary>
-        /// Abstração de execução de uma consulta
-        /// </summary>
-        /// <param name="queryFunction"></param>
-        /// <param name="errorMsg"></param>
-        /// <returns>Task <see cref="Result{TResponse}"/></returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Register error in Result object.")]
-        public static async Task<Result<TResponse>> Query(Task<TResponse> queryFunction, string errorMsg, [CallerMemberName] string @callerMethodName = null)
-        {
-            try
-            {
-                ///TODO: Método ainda em desenvolvimento;
-
-                var result = await queryFunction;
-
-                if (result is null || result is default(TResponse) || (result is IEnumerable enumerable && !enumerable.GetEnumerator().MoveNext()))
-                {
-                    return new Result<TResponse>(result, new MetaWarn("Retorno sem resultado."), HttpStatusCode.NotFound);
-                }
-
-                return new Result<TResponse>(result, new MetaHit(), HttpStatusCode.OK);
-            }
-            catch (Exception ex)
-            {
-                return new Result(new MetaError(errorMsg, ex).AddChunk("CallerMemberName", @callerMethodName), HttpStatusCode.BadRequest);
-            }
-        }
-
+        public static Result<TResponse> Success(TResponse response)
+            => new Result<TResponse>(response, new MetaHit());
 
         /// <summary>
         /// Result completo. Monte o resultado que for mais conveniente
@@ -132,7 +88,7 @@ namespace Tgp.FluentResult
         /// <param name="metadata"><see cref="IMetadata"/></param>
         /// <param name="statusCode"><see cref="HttpStatusCode"/></param>
         /// <returns><see cref="Result{TResponse}"/></returns>
-        public static Result<TResponse> Ctor(TResponse response, IMetadata metadata, HttpStatusCode statusCode)
-            => new Result<TResponse>(response, metadata, statusCode);
+        public static Result<TResponse> Ctor(TResponse response, IMetadata metadata)
+            => new Result<TResponse>(response, metadata);
     }
 }

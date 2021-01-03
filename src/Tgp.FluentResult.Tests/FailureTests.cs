@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Linq;
-using System.Net;
 using Tgp.FluentResult.Core.Interfaces;
 
 namespace Tgp.FluentResult.Tests
@@ -14,46 +13,46 @@ namespace Tgp.FluentResult.Tests
             var result = Result.Failure("Resultado com falha");
 
             Assert.IsTrue(result.IsFailed);
-            Assert.AreEqual(result.GetMetadata.Values.OfType<IMetaError>().Count(), 1);
+            Assert.AreEqual(1, result.GetMetadata.Values.OfType<IMetaError>().Count());
         }
 
         [Test]
         public void Failure2()
         {
             var ex = new NullReferenceException("Objeto nao encontrado");
-            var result = Result.Failure("Resultado com falha", ex, HttpStatusCode.BadRequest);
+            var result = Result.Failure("Resultado com falha", ex);
 
             Assert.IsTrue(result.IsFailed);
-            Assert.AreEqual(result.GetMetadata.Values.OfType<IMetaError>().Count(), 1);
+            Assert.AreEqual(1, result.GetMetadata.Values.OfType<IMetaError>().Count());
         }
 
         [Test]
         public void Failure3()
         {
             var ex = new NullReferenceException("Objeto nao encontrado");
-            var result = Result.Failure("Resultado com falha", ex, HttpStatusCode.BadRequest)
+            var result = Result.Failure("Resultado com falha", ex)
                 .AppendMeta(MetaResult.Error("Registra outro erro").AddChunk("TemChave", "ComValor"))
                 .AppendMeta(MetaResult.Hit().AddChunk("EsseObjeto", new { Id = Guid.NewGuid() }))
                 .AppendMeta(MetaResult.Error("Mas no final, outro erro!", ex));
 
             Assert.IsTrue(result.IsFailed);
 
-            //Total de metadados no result;
-            Assert.AreEqual(result.GetMetadata.Count, 4);
+            ///Total de metadados no result;
+            Assert.AreEqual(4, result.GetMetadata.Count);
 
             var errors = result.GetMetadata.Values.OfType<IMetaError>();
-            //São 3 metadados de Erro; 1 no Failure, +2 nos Appends;
-            Assert.AreEqual(errors.Count(), 3);
-            //Um metadado de Erro com 'Chunk';
-            Assert.AreEqual(errors.Where(x => x.GetChunks.Count > 0).Count(), 1);
-            //São 2 metadados de Erro com Exceções;
-            Assert.AreEqual(errors.Where(x => x.Exception != null).Count(), 2);
+            ///São 3 metadados de Erro; 1 no Failure, +2 nos Appends;
+            Assert.AreEqual(3, errors.Count());
+            ///Um metadado de Erro com 'Chunk';
+            Assert.AreEqual(1, errors.Count(x => x.GetChunks.Count > 0));
+            ///São 2 metadados de Erro com Exceções;
+            Assert.AreEqual(2, errors.Count(x => x.Exception != null));
             
             var hits = result.GetMetadata.Values.OfType<IMetaHit>();
-            //Um metadado de acerto
-            Assert.AreEqual(hits.Count(), 1);
-            //Um metadado com 'chunk';
-            Assert.AreEqual(hits.Where(x => x.GetChunks.Count > 0).Count(), 1);
+            ///Um metadado de acerto vindo do Append;
+            Assert.AreEqual(1, hits.Count());
+            ///Um metadado com 'chunk';
+            Assert.AreEqual(1, hits.Count(x => x.GetChunks.Count > 0));
         }
     }
 }

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
+using Tgp.FluentResult.Core.Exceptions;
 using Tgp.FluentResult.Core.Interfaces;
 
 namespace Tgp.FluentResult.Core.Models
@@ -21,11 +20,6 @@ namespace Tgp.FluentResult.Core.Models
         /// valor inicial da chave do dicionário dos metadados
         /// </summary>
         private const byte _initialValueOfMetaKey = 1;
-
-        /// <summary>
-        /// Código de retorno da requisição;
-        /// </summary>
-        public HttpStatusCode StatusCode { get; private set; }
 
         /// <summary>
         /// Registrar se o objeto armazenado é uma falha ou não;
@@ -51,16 +45,15 @@ namespace Tgp.FluentResult.Core.Models
         /// </summary>
         /// <param name="metadata"></param>
         /// <param name="statusCode"></param>
-        protected BaseResult(IMetadata metadata, HttpStatusCode statusCode)
+        protected BaseResult(IMetadata metadata)
         {
             if (metadata is null)
             {
-                throw new ArgumentNullException(nameof(metadata), "Entity is mandatory!");
+                throw new FluentResultException(nameof(BaseResult<TResult>), nameof(BaseResult<TResult>), nameof(metadata), "Entity is mandatory!");
             }
 
             this.metadata = new Dictionary<byte, IMetadata>() { [_initialValueOfMetaKey] = metadata };
-            this.IsFailed = typeof(IMetaError).IsInstanceOfType(metadata);
-            this.StatusCode = statusCode;
+            this.IsFailed = metadata is IMetaError;
         }
 
         /// <summary>
@@ -72,14 +65,17 @@ namespace Tgp.FluentResult.Core.Models
         {
             if (metadata is null)
             {
-                throw new ArgumentNullException(nameof(metadata), "Entity is mandatory!");
+                throw new FluentResultException(nameof(BaseResult<TResult>), nameof(AppendMeta), nameof(metadata), "Entity is mandatory!");
             }
 
             int sum = this.metadata.Count + 1;
 
             if (sum > byte.MaxValue)
             {
-                throw new IndexOutOfRangeException($"Each Result object can contain a maximum of {byte.MaxValue} Metadata's.");
+                throw new FluentResultException(nameof(BaseResult<TResult>)
+                    , nameof(AppendMeta)
+                    , nameof(metadata)
+                    , $"Each Result object can contain a maximum of {byte.MaxValue} Metadata's.");
             }
 
             this.metadata.Add( (byte) sum, metadata);

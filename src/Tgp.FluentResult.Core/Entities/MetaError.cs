@@ -1,4 +1,5 @@
 ﻿using System;
+using Tgp.FluentResult.Core.Exceptions;
 using Tgp.FluentResult.Core.Interfaces;
 using Tgp.FluentResult.Core.Models;
 
@@ -29,7 +30,7 @@ namespace Tgp.FluentResult.Core.Entities
         {
             if (string.IsNullOrWhiteSpace(message))
             {
-                throw new ArgumentNullException(nameof(message), "Property is Mandatory!");
+                throw new FluentResultException(nameof(MetaError), nameof(MetaError), nameof(message), "Property is Mandatory!");
             }
 
             this.Message = message;

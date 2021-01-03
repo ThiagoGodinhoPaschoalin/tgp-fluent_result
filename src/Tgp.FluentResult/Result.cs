@@ -1,5 +1,4 @@
-﻿using System.Net;
-using Tgp.FluentResult.Core.Interfaces;
+﻿using Tgp.FluentResult.Core.Interfaces;
 using Tgp.FluentResult.Core.Models;
 
 namespace Tgp.FluentResult
@@ -9,8 +8,7 @@ namespace Tgp.FluentResult
     /// </summary>
     public sealed partial class Result : BaseResult<Result>
     {
-        public Result(IMetadata metadata, HttpStatusCode statusCode)
-            : base(metadata, statusCode)
+        public Result(IMetadata metadata) : base(metadata)
         { }
     }
 
@@ -30,8 +28,8 @@ namespace Tgp.FluentResult
         /// </summary>
         public bool IsValidData { get; private set; }
 
-        public Result(TResponse data, IMetadata metadata, HttpStatusCode statusCode)
-            : base(metadata, statusCode)
+        public Result(TResponse data, IMetadata metadata) 
+            : base(metadata)
         {
             this.Data = data;
             this.IsValidData = data != null;
@@ -41,10 +39,6 @@ namespace Tgp.FluentResult
         /// (Result<TResponse> == Result) TRUE;
         /// </summary>
         /// <param name="result"></param>
-        public static implicit operator Result<TResponse>(Result result) => new Result<TResponse>(result);
-
-        public Result(Result result)
-            : this(null, result.GetFirstMetadata, result.StatusCode)
-        { }
+        public static implicit operator Result<TResponse>(Result result) => new Result<TResponse>(null, result.GetFirstMetadata);
     }
 }

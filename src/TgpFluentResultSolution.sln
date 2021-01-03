@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tgp.FluentResult.Core", "Tgp.FluentResult.Core\Tgp.FluentResult.Core.csproj", "{7070640F-5311-4419-BBF4-290034946144}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tgp.FluentResult.Core", "Tgp.FluentResult.Core\Tgp.FluentResult.Core.csproj", "{7070640F-5311-4419-BBF4-290034946144}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tgp.FluentResult", "Tgp.FluentResult\Tgp.FluentResult.csproj", "{01414417-B9A1-4E17-8FCB-0976E6B82CA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tgp.FluentResult", "Tgp.FluentResult\Tgp.FluentResult.csproj", "{01414417-B9A1-4E17-8FCB-0976E6B82CA6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tgp.FluentResult.Tests", "Tgp.FluentResult.Tests\Tgp.FluentResult.Tests.csproj", "{02B81306-6FA2-4C00-8107-E0384357B027}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tgp.FluentResult.Tests.Ideas", "Tgp.FluentResult.Tests.Ideas\Tgp.FluentResult.Tests.Ideas.csproj", "{5A6CD3A7-DC7B-475C-859A-DED421BBA145}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,18 @@ Global
 		{02B81306-6FA2-4C00-8107-E0384357B027}.Release|x64.Build.0 = Release|Any CPU
 		{02B81306-6FA2-4C00-8107-E0384357B027}.Release|x86.ActiveCfg = Release|Any CPU
 		{02B81306-6FA2-4C00-8107-E0384357B027}.Release|x86.Build.0 = Release|Any CPU
+		{5A6CD3A7-DC7B-475C-859A-DED421BBA145}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A6CD3A7-DC7B-475C-859A-DED421BBA145}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A6CD3A7-DC7B-475C-859A-DED421BBA145}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5A6CD3A7-DC7B-475C-859A-DED421BBA145}.Debug|x64.Build.0 = Debug|Any CPU
+		{5A6CD3A7-DC7B-475C-859A-DED421BBA145}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5A6CD3A7-DC7B-475C-859A-DED421BBA145}.Debug|x86.Build.0 = Debug|Any CPU
+		{5A6CD3A7-DC7B-475C-859A-DED421BBA145}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A6CD3A7-DC7B-475C-859A-DED421BBA145}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A6CD3A7-DC7B-475C-859A-DED421BBA145}.Release|x64.ActiveCfg = Release|Any CPU
+		{5A6CD3A7-DC7B-475C-859A-DED421BBA145}.Release|x64.Build.0 = Release|Any CPU
+		{5A6CD3A7-DC7B-475C-859A-DED421BBA145}.Release|x86.ActiveCfg = Release|Any CPU
+		{5A6CD3A7-DC7B-475C-859A-DED421BBA145}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

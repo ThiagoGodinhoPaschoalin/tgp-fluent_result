@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Tgp.FluentResult.Tests.Ideas\Tgp.FluentResult.Tests.Ideas.csproj" />
     <ProjectReference Include="..\Tgp.FluentResult\Tgp.FluentResult.csproj" />
   </ItemGroup>
 
