@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using Tgp.FluentResult.Core.Interfaces;
+using Tgp.FluentResult.Tests.DTOs;
 
 namespace Tgp.FluentResult.Tests
 {
@@ -13,7 +14,7 @@ namespace Tgp.FluentResult.Tests
             var result = Result.Failure("Resultado com falha");
 
             Assert.IsTrue(result.IsFailed);
-            Assert.AreEqual(1, result.GetMetadata.Values.OfType<IMetaError>().Count());
+            Assert.AreEqual(1, result.GetMetadata.Values.OfType<IErrorMetadata>().Count());
         }
 
         [Test]
@@ -23,7 +24,7 @@ namespace Tgp.FluentResult.Tests
             var result = Result.Failure("Resultado com falha", ex);
 
             Assert.IsTrue(result.IsFailed);
-            Assert.AreEqual(1, result.GetMetadata.Values.OfType<IMetaError>().Count());
+            Assert.AreEqual(1, result.GetMetadata.Values.OfType<IErrorMetadata>().Count());
         }
 
         [Test]
@@ -40,7 +41,7 @@ namespace Tgp.FluentResult.Tests
             ///Total de metadados no result;
             Assert.AreEqual(4, result.GetMetadata.Count);
 
-            var errors = result.GetMetadata.Values.OfType<IMetaError>();
+            var errors = result.GetMetadata.Values.OfType<IErrorMetadata<string>>();
             ///São 3 metadados de Erro; 1 no Failure, +2 nos Appends;
             Assert.AreEqual(3, errors.Count());
             ///Um metadado de Erro com 'Chunk';
@@ -48,11 +49,31 @@ namespace Tgp.FluentResult.Tests
             ///São 2 metadados de Erro com Exceções;
             Assert.AreEqual(2, errors.Count(x => x.Exception != null));
             
-            var hits = result.GetMetadata.Values.OfType<IMetaHit>();
+            var hits = result.GetMetadata.Values.OfType<IHitMetadata>();
             ///Um metadado de acerto vindo do Append;
             Assert.AreEqual(1, hits.Count());
             ///Um metadado com 'chunk';
             Assert.AreEqual(1, hits.Count(x => x.GetChunks.Count > 0));
+        }
+
+        [Test]
+        public void Failure4()
+        {
+            ErrorResponseExampleDTO dto = new ErrorResponseExampleDTO
+            {
+                Code = 1,
+                Message = "xpto"
+            };
+
+            var result = Result.Failure(dto);
+
+            Assert.IsTrue(result.IsFailed);
+
+            Assert.AreEqual(1, result.GetMetadata.Values.OfType<IErrorMetadata>().Count());
+            Assert.AreEqual(1, result.GetMetadata.Values.OfType<IErrorMetadata<ErrorResponseExampleDTO>>().Count());
+
+            var obj = result.GetMetadata.Values.OfType<IErrorMetadata<ErrorResponseExampleDTO>>().First();
+            Assert.AreEqual(dto, obj.Data);
         }
     }
 }

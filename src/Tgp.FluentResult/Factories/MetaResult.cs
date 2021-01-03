@@ -13,25 +13,26 @@ namespace Tgp.FluentResult
         /// Fábrica de metadado para acerto
         /// </summary>
         /// <param name="message">Mensagem amigável para usuário</param>
-        /// <returns><see cref="IMetaHit"/></returns>
-        public static IMetaHit Hit()
-            => new MetaHit();
+        /// <returns><see cref="IHitMetadata"/></returns>
+        public static IHitMetadata Hit()
+            => new HitMetadata();
 
         /// <summary>
         /// Fábrica de metadado para aviso
         /// </summary>
         /// <param name="message">Mensagem descritiva sobre o aviso</param>
-        /// <returns><see cref="IMetaWarn"/></returns>
-        public static IMetaWarn Warn(string message) 
-            => new MetaWarn(message);
+        /// <returns><see cref="IWarnMetadata"/></returns>
+        public static IWarnMetadata Warn(string message) 
+            => new WarnMetadata(message);
 
         /// <summary>
         /// Fábrica de metadado para erro
         /// </summary>
-        /// <param name="message">Mensagem amigável para usuário</param>
-        /// <param name="exception">Exceção</param>
-        /// <returns><see cref="IMetaError"/></returns>
-        public static IMetaError Error(string message, Exception exception = null)
-            => new MetaError(message, exception);
+        /// <typeparam name="TError">Entidade</typeparam>
+        /// <param name="error">Objeto de erro</param>
+        /// <param name="exception"><see cref="Exception"/></param>
+        /// <returns><see cref="IErrorMetadata{TData}"/></returns>
+        public static IErrorMetadata<TError> Error<TError>(TError error, Exception exception = null)
+            => new ErrorMetadata<TError>(error, exception);
     }
 }

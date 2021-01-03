@@ -29,14 +29,14 @@ namespace Tgp.FluentResult.Tests.Ideas
 
                 if ((result is IEnumerable enumerable && !enumerable.GetEnumerator().MoveNext()))
                 {
-                    return new Result<TResponse>(result, new MetaWarn("Retorno vazio."));
+                    return new Result<TResponse>(result, new WarnMetadata("Retorno vazio."));
                 }
 
-                return new Result<TResponse>(result, new MetaHit());
+                return new Result<TResponse>(result, new HitMetadata());
             }
             catch (Exception ex)
             {
-                var meta = new MetaError(errorMsg, new FluentResultException(errorMsg, ex))
+                var meta = new ErrorMetadata<string>(errorMsg, new FluentResultException(errorMsg, ex))
                     .AddChunk("CallerMemberName", @callerMethodName);
                 return new Result(meta);
             }

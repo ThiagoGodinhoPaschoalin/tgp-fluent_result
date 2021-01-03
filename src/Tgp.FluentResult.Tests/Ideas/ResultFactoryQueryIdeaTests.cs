@@ -50,7 +50,7 @@ namespace Tgp.FluentResult.Tests.Ideas
     class ResultFactoryQueryIdeaTests
     {
         [Test]
-        public void Query01()
+        public void SuccessFailedWhenExecuteBeforeEnterInQueryAsync()
         {
             Assert.ThrowsAsync<NotImplementedException>(async delegate ()
             {
@@ -60,12 +60,12 @@ namespace Tgp.FluentResult.Tests.Ideas
         }
 
         [Test]
-        public async Task Query02()
+        public async Task SuccessFailedWhenThrowInsideQueryAsync()
         {
             var queryResult = await ResultFactoryQueryIdea.QueryAsync(MockModel.MethodWithThrowAsync(), "Falha na execução.");
 
             Assert.IsTrue(queryResult.IsFailed);
-            Assert.IsTrue(queryResult.GetFirstMetadata.TryConvertMeta(out IMetaError metaError));
+            Assert.IsTrue(queryResult.GetFirstMetadata.TryConvertMeta(out IErrorMetadata<string> metaError));
             Assert.IsTrue(metaError.Exception is FluentResultException);
         }
 
@@ -78,7 +78,7 @@ namespace Tgp.FluentResult.Tests.Ideas
             Assert.IsTrue(queryResult.IsValidData);
 
             ///É atenção, pois a saída é vazia! não tem um objeto preenchido
-            Assert.IsTrue(queryResult.GetFirstMetadata.TryConvertMeta<IMetaWarn>(out _));
+            Assert.IsTrue(queryResult.GetFirstMetadata.TryConvertMeta<IWarnMetadata>(out _));
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace Tgp.FluentResult.Tests.Ideas
             Assert.IsFalse(queryResult.IsFailed);
             Assert.IsTrue(queryResult.IsValidData);
 
-            Assert.IsTrue(queryResult.GetFirstMetadata.TryConvertMeta<IMetaHit>(out _));
+            Assert.IsTrue(queryResult.GetFirstMetadata.TryConvertMeta<IHitMetadata>(out _));
         }
 
         [Test]
@@ -100,7 +100,7 @@ namespace Tgp.FluentResult.Tests.Ideas
             Assert.IsFalse(queryResult.IsFailed);
             Assert.IsTrue(queryResult.IsValidData);
 
-            Assert.IsTrue(queryResult.GetFirstMetadata.TryConvertMeta<IMetaHit>(out _));
+            Assert.IsTrue(queryResult.GetFirstMetadata.TryConvertMeta<IHitMetadata>(out _));
 
             Assert.AreEqual(1, queryResult.Data.Count());
         }

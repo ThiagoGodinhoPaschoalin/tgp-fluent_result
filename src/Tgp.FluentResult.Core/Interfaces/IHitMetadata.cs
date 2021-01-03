@@ -3,6 +3,6 @@
     /// <summary>
     /// Interface de Metadado para Acerto
     /// </summary>
-    public interface IMetaHit : IMetadata
+    public interface IHitMetadata : IMetadata
     { }
 }

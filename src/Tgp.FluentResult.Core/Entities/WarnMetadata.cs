@@ -7,7 +7,7 @@ namespace Tgp.FluentResult.Core.Entities
     /// <summary>
     /// Metadado padrão para Aviso
     /// </summary>
-    public class MetaWarn : Metadata, IMetaWarn
+    public class WarnMetadata : Metadata, IWarnMetadata
     {
         /// <summary>
         /// Mensagem descritiva do Metadado de Aviso
@@ -18,12 +18,12 @@ namespace Tgp.FluentResult.Core.Entities
         /// Metadado para Aviso
         /// </summary>
         /// <param name="message">Mensagem</param>
-        public MetaWarn(string message)
+        public WarnMetadata(string message)
             : base()
         {
             if (string.IsNullOrWhiteSpace(message))
             {
-                throw new FluentResultException(nameof(MetaWarn), nameof(MetaWarn), nameof(message), "Property is Mandatory!");
+                throw new FluentResultException(nameof(WarnMetadata), nameof(WarnMetadata), nameof(message), "Property is Mandatory!");
             }
 
             this.Message = message;

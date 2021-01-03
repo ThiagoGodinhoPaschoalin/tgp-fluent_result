@@ -3,7 +3,7 @@
     /// <summary>
     /// Interface de Metadado para Aviso
     /// </summary>
-    public interface IMetaWarn : IMetadata
+    public interface IWarnMetadata : IMetadata
     {
         /// <summary>
         /// Mensagem descritiva do Metadado do Aviso

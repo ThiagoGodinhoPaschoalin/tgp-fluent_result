@@ -14,7 +14,7 @@ namespace Tgp.FluentResult.Tests
             var result = Result.Success();
 
             Assert.IsFalse(result.IsFailed);
-            Assert.AreEqual(1, result.GetMetadata.Values.OfType<IMetaHit>().Count());
+            Assert.AreEqual(1, result.GetMetadata.Values.OfType<IHitMetadata>().Count());
         }
 
         [Test]
@@ -24,7 +24,7 @@ namespace Tgp.FluentResult.Tests
 
             Assert.IsFalse(result.IsFailed);
             Assert.IsTrue(result.IsValidData);
-            Assert.AreEqual(1, result.GetMetadata.Values.OfType<IMetaHit>().Count());
+            Assert.AreEqual(1, result.GetMetadata.Values.OfType<IHitMetadata>().Count());
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace Tgp.FluentResult.Tests
             Assert.IsFalse(result.IsFailed);
             //Com o implicit operator, criei um Result sem Data! mesmo ele sendo requisitado.
             Assert.IsFalse(result.IsValidData);
-            Assert.AreEqual(1, result.GetMetadata.Values.OfType<IMetaHit>().Count());
+            Assert.AreEqual(1, result.GetMetadata.Values.OfType<IHitMetadata>().Count());
         }
     }
 }

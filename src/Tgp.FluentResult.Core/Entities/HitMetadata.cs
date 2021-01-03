@@ -6,13 +6,13 @@ namespace Tgp.FluentResult.Core.Entities
     /// <summary>
     /// Metadado padrão para acerto
     /// </summary>
-    public class MetaHit : Metadata, IMetaHit
+    public class HitMetadata : Metadata, IHitMetadata
     {
         /// <summary>
         /// Metadado para acerto
         /// </summary>
         /// <param name="message">Mensagem descritiva sobre o acerto</param>
-        public MetaHit()
+        public HitMetadata()
             : base()
         { }
     }

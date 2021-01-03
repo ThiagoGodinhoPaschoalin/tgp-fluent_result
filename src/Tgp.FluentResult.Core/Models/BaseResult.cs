@@ -53,7 +53,7 @@ namespace Tgp.FluentResult.Core.Models
             }
 
             this.metadata = new Dictionary<byte, IMetadata>() { [_initialValueOfMetaKey] = metadata };
-            this.IsFailed = metadata is IMetaError;
+            this.IsFailed = metadata is IErrorMetadata;
         }
 
         /// <summary>
