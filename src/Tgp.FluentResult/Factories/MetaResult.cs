@@ -13,9 +13,9 @@ namespace Tgp.FluentResult
         /// Fábrica de metadado para acerto
         /// </summary>
         /// <param name="message">Mensagem amigável para usuário</param>
-        /// <returns><see cref="IHitMetadata"/></returns>
-        public static IHitMetadata Hit()
-            => new HitMetadata();
+        /// <returns><see cref="ISuccessMetadata"/></returns>
+        public static ISuccessMetadata Success()
+            => new SuccessMetadata();
 
         /// <summary>
         /// Fábrica de metadado para aviso

@@ -37,7 +37,7 @@ namespace Tgp.FluentResult
         /// </summary>
         /// <returns><see cref="Result"/></returns>
         public static Result Success()
-            => new Result(new HitMetadata());
+            => new Result(new SuccessMetadata());
 
         /// <summary>
         ///  Retorno de sucesso com um objeto de dados para o usuário
@@ -78,7 +78,7 @@ namespace Tgp.FluentResult
         /// <param name="message">Mensagem amigável para o usuário</param>
         /// <returns><see cref="Result{TResponse}"/></returns>
         public static Result<TResponse> Success(TResponse response)
-            => new Result<TResponse>(response, new HitMetadata());
+            => new Result<TResponse>(response, new SuccessMetadata());
 
         /// <summary>
         /// Result completo. Monte o resultado que for mais conveniente

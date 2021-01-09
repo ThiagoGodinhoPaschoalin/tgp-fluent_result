@@ -89,7 +89,7 @@ namespace Tgp.FluentResult.Tests.Ideas
             Assert.IsFalse(queryResult.IsFailed);
             Assert.IsTrue(queryResult.IsValidData);
 
-            Assert.IsTrue(queryResult.GetFirstMetadata.TryConvertMeta<IHitMetadata>(out _));
+            Assert.IsTrue(queryResult.GetFirstMetadata.TryConvertMeta<ISuccessMetadata>(out _));
         }
 
         [Test]
@@ -100,7 +100,7 @@ namespace Tgp.FluentResult.Tests.Ideas
             Assert.IsFalse(queryResult.IsFailed);
             Assert.IsTrue(queryResult.IsValidData);
 
-            Assert.IsTrue(queryResult.GetFirstMetadata.TryConvertMeta<IHitMetadata>(out _));
+            Assert.IsTrue(queryResult.GetFirstMetadata.TryConvertMeta<ISuccessMetadata>(out _));
 
             Assert.AreEqual(1, queryResult.Data.Count());
         }

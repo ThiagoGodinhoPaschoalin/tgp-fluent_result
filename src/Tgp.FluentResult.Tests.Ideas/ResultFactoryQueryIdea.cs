@@ -32,7 +32,7 @@ namespace Tgp.FluentResult.Tests.Ideas
                     return new Result<TResponse>(result, new WarnMetadata("Retorno vazio."));
                 }
 
-                return new Result<TResponse>(result, new HitMetadata());
+                return new Result<TResponse>(result, new SuccessMetadata());
             }
             catch (Exception ex)
             {

@@ -33,7 +33,7 @@ namespace Tgp.FluentResult.Tests
             var ex = new NullReferenceException("Objeto nao encontrado");
             var result = Result.Failure("Resultado com falha", ex)
                 .AppendMeta(MetaResult.Error("Registra outro erro").AddChunk("TemChave", "ComValor"))
-                .AppendMeta(MetaResult.Hit().AddChunk("EsseObjeto", new { Id = Guid.NewGuid() }))
+                .AppendMeta(MetaResult.Success().AddChunk("EsseObjeto", new { Id = Guid.NewGuid() }))
                 .AppendMeta(MetaResult.Error("Mas no final, outro erro!", ex));
 
             Assert.IsTrue(result.IsFailed);
@@ -49,7 +49,7 @@ namespace Tgp.FluentResult.Tests
             ///São 2 metadados de Erro com Exceções;
             Assert.AreEqual(2, errors.Count(x => x.Exception != null));
             
-            var hits = result.GetMetadata.Values.OfType<IHitMetadata>();
+            var hits = result.GetMetadata.Values.OfType<ISuccessMetadata>();
             ///Um metadado de acerto vindo do Append;
             Assert.AreEqual(1, hits.Count());
             ///Um metadado com 'chunk';

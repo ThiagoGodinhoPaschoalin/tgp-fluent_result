@@ -1,4 +1,5 @@
-﻿using Tgp.FluentResult.Core.Interfaces;
+﻿using System.Linq;
+using Tgp.FluentResult.Core.Interfaces;
 using Tgp.FluentResult.Core.Models;
 
 namespace Tgp.FluentResult
@@ -35,10 +36,25 @@ namespace Tgp.FluentResult
             this.IsValidData = data != null;
         }
 
+        public Result(Result result) 
+            : this(null, result.GetFirstMetadata)
+        {
+            var values = result.GetMetadata
+                    .Where(x => x.Value != result.GetFirstMetadata)?
+                    .OrderBy(x => x.Key)?
+                    .Select(x => x.Value)
+                    ?? Enumerable.Empty<IMetadata>();
+
+            foreach (var value in values)
+            {
+                AppendMeta(value);
+            }
+        }
+
         /// <summary>
         /// (Result<TResponse> == Result) TRUE;
         /// </summary>
         /// <param name="result"></param>
-        public static implicit operator Result<TResponse>(Result result) => new Result<TResponse>(null, result.GetFirstMetadata);
+        public static implicit operator Result<TResponse>(Result result) => new Result<TResponse>(result);
     }
 }
